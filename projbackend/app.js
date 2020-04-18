@@ -5,11 +5,13 @@ const express = require("express");
 
 const app = express();
 
-// requrired MIDDLEWARES
+//MIDDLEWARES
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const corsParser = require("cors");
 
+// require routes
+const authRoutes = require("./routes/auth");
 
 // connect to the db
 mongoose.connect(process.env.DATABASE,
@@ -20,15 +22,18 @@ mongoose.connect(process.env.DATABASE,
     console.log("DB CONEECTED!!");
 });
 
-// useing the Middlewares
+// using the Middlewares
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(corsParser());
 
+// My Routes
+app.use("/api", authRoutes);
 
-// set the PORT
+//PORT
 const port = process.env.PORT || 8000;
-// listen to the PORT
+
+// Starting the Server
 app.listen(port, ()=>{
     console.log(`App is listen at port: ${port}`);
 });
