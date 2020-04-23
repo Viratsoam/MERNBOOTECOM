@@ -74,3 +74,21 @@ exports.signout = function(req,res){
     });
 };
 
+
+// protected routes
+
+exports.isSignedIn = expressJwt({
+    secret: process.env.SECRET,
+    userProperty: "auth"
+});
+
+// custom middlewares
+exports.isAuthenticated = (req,res,next)=>{
+
+    next();
+}
+
+exports.isAdmin = (req,res,next)=>{
+
+    next();
+}
